@@ -6,8 +6,11 @@ import (
 	"fmt"
 	"io"
 	"net/http"
+	"net/http/cookiejar"
 	"os"
 	"time"
+
+	"golang.org/x/net/publicsuffix"
 )
 
 var (
@@ -44,6 +47,7 @@ func DefaultRedirectChecker(req *http.Request, via []*http.Request) error {
 		return fmt.Errorf("stop after %d redirects", DefaultRedirectLimit)
 	}
 
+	fmt.Printf("Redirect to: %s\n", req.URL)
 	return nil
 }
 
@@ -56,6 +60,13 @@ func main() {
 
 	} else {
 		var client = NewClient(true)
+
+		if cookie, err := cookiejar.New(&cookiejar.Options{PublicSuffixList: publicsuffix.List}); err != nil {
+			fmt.Fprintf(os.Stderr, "Error: %v\n", err)
+
+		} else {
+			client.Jar = cookie
+		}
 
 		if resp, err := client.Do(req); err != nil {
 			fmt.Fprintf(os.Stderr, "Error: %v\n", err)
