@@ -1,25 +1,12 @@
 package main
 
 import (
-	"test_term_module/pkg/termcolor"
+	"fmt"
+	_ "test_term_module/pkg/termcolor.v1"
+	color "test_term_module/pkg/termcolor.v2"
 )
 
 func main() {
-	var color = termcolor.New("", termcolor.FgRed)
-	termcolor.Println(color, "Testing...")
-
-	color.Foreground = termcolor.FgBlue
-	termcolor.Println(color, "Testing...")
-
-	color.Foreground = termcolor.FgYellow
-	termcolor.Println(color, "Testing...")
-
-	color.Foreground = termcolor.FgWhite
-	termcolor.Println(color, "Testing...")
-
-	color.Foreground = termcolor.FgCyan
-	termcolor.Println(color, "Testing...")
-
-	color.Foreground = termcolor.FgMagenta
-	termcolor.Println(color, "Testing...")
+	var termColor = color.New(color.FgHiRed, color.Bold)
+	fmt.Println(termColor.Set("Testing..."))
 }

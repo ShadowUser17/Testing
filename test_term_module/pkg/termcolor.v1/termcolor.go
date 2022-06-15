@@ -1,4 +1,4 @@
-package termcolor
+package termcolorv1
 
 import (
 	"os"
