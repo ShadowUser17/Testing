@@ -1,0 +1,4 @@
+items = [{% for it in data %} "http://{{ it.values()|join(':') }}/metrics", {% endfor %}]
+
+value = "{{ value if value else 128 }}"
+
