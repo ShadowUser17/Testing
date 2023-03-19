@@ -1,0 +1,5 @@
+opentelemetry-api
+opentelemetry-sdk
+opentelemetry-exporter-zipkin
+opentelemetry-exporter-zipkin-json
+opentelemetry-exporter-zipkin-proto-http
