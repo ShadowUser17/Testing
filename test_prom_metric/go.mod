@@ -1,6 +1,6 @@
 module test_prom_metric
 
-go 1.17
+go 1.19
 
 require github.com/prometheus/client_golang v1.12.2
 

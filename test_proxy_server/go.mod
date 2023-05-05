@@ -1,3 +1,3 @@
 module test_proxy_server
 
-go 1.18
+go 1.19
