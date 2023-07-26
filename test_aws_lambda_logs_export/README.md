@@ -1,4 +1,4 @@
-#### How to deploy:
+#### Deploy:
 - Create IAM policy:
 ```json
 {
@@ -32,3 +32,12 @@
 - Configure environment variable: `LOKI_ENDPOINT`
 - Attach VPC and configure access to Loki ingress.
 - Create in CloudWatch Logs subscription filter for log groups.
+
+#### Testing:
+```bash
+python3 -m venv --upgrade-deps env && \
+./env/bin/pip3 install -r requirements.txt
+```
+```bash
+./env/bin/python3 ./testing.py
+```
