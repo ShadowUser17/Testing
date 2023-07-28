@@ -31,6 +31,16 @@ def get_repo_tags(client: any, arn: str) -> list:
     return responce["tags"]
 
 
+def get_lifecycle_policy(client: any, repo_name: str) -> str:
+    responce = client.get_lifecycle_policy(repositoryName=repo_name)
+    return responce["lifecyclePolicyText"]
+
+
+def get_repository_policy(client: any, repo_name: str) -> str:
+    responce = client.get_repository_policy(repositoryName=repo_name)
+    return responce["policyText"]
+
+
 try:
     client = boto3.client("ecr")
     print(get_auth_token(client))
