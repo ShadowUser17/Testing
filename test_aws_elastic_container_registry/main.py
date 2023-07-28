@@ -21,6 +21,11 @@ def describe_repos(client: any, repo_list: list) -> list:
     return responce["repositories"]
 
 
+def list_repos(client: any, items: int = 100) -> list:
+    responce = client.describe_repositories(maxResults=items)
+    return responce["repositories"]
+
+
 def get_repo_tags(client: any, arn: str) -> list:
     responce = client.list_tags_for_resource(resourceArn=arn)
     return responce["tags"]
