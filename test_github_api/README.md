@@ -1,3 +1,3 @@
 #### URLs:
-- [github-cli](https://github.com/cli/cli/releases)
-- [github-go](https://github.com/cli/go-gh/blob/trunk/README.md)
+- [API](https://docs.github.com/en/rest?apiVersion=2022-11-28)
+- [CLI](https://docs.github.com/en/github-cli)
