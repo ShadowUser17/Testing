@@ -6,7 +6,6 @@ import argparse
 import traceback
 
 from urllib import request
-from urllib import error as http_error
 
 
 def get_args() -> argparse.Namespace:
@@ -24,11 +23,11 @@ def check_url(url: str) -> dict:
     try:
         with request.urlopen(url) as client:
             data = client.read()
-            return json.loads(data.decode())
+            data = json.loads(data.decode())
+            return {"service": url, "version": data.get("version", "")}
 
-    except Exception:
-        traceback.print_exc()
-        return {}
+    except Exception as error:
+        return {"service": url, "error": str(error)}
 
 
 try:
