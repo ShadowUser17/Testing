@@ -1,3 +1,3 @@
 module test_cgo
 
-go 1.19
+go 1.20
