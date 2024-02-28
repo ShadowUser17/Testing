@@ -3,6 +3,7 @@ import sys
 import json
 import gzip
 import base64
+import pathlib
 import logging
 import traceback
 
@@ -11,6 +12,7 @@ from kubernetes import client as k8s_client
 
 
 def get_helm_releases(client: any) -> list:
+    # return k8s_client.V1SecretList
     res = client.list_secret_for_all_namespaces()
     items = filter(lambda item: item.type == "helm.sh/release.v1", res.items)
     return list(sorted(items, key=lambda item: item.metadata.name, reverse=True))
@@ -35,6 +37,11 @@ def extract_helm_release_data(item: dict) -> dict:
     return json.loads(gzip.decompress(data))
 
 
+def dump_helm_releases(path: pathlib.Path, item: k8s_client.V1Secret) -> None:
+    path = path.joinpath("{}.json".format(item.metadata.name))
+    path.write_text(item.to_str())
+
+
 try:
     logging.basicConfig(
         format=r'%(levelname)s [%(asctime)s]: "%(message)s"',
@@ -48,10 +55,16 @@ try:
     items = get_helm_releases(client)
     items = filter_helm_releases(items)
 
+    base_dir = pathlib.Path("./releases")
+    base_dir.mkdir(exist_ok=True)
+
     for item in items:
-        data = extract_helm_release_data(item)
+        logging.info("Dump: {}".format(item.metadata.name))
+        dump_helm_releases(base_dir, item)
+
+        '''data = extract_helm_release_data(item)
         chart = data["chart"]["metadata"]
-        logging.info("{} {} {}".format(chart.get("name", "?"), chart.get("home", "?"), chart.get("version", "?")))
+        logging.info("{} {} {}".format(chart.get("name", "?"), chart.get("home", "?"), chart.get("version", "?")))'''
 
 except:
     logging.error(traceback.format_exc())
