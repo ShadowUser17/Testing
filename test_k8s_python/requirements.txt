@@ -1,1 +1,2 @@
-kubernetes
+pyyaml
+kubernetes==27.2.0
