@@ -12,4 +12,5 @@ logging.basicConfig(
 )
 
 k8s_config.load_kube_config()
-client = k8s_client.CoreV1Api()
+core_api_client = k8s_client.CoreV1Api()
+custom_api_client = k8s_client.CustomObjectsApi()
