@@ -78,6 +78,6 @@ try:
         # chart = data["chart"]["metadata"]
         # logging.info("{} {} {}".format(chart.get("name", "?"), chart.get("home", "?"), chart.get("version", "?")))
 
-except:
+except Exception:
     logging.error(traceback.format_exc())
     sys.exit(1)
