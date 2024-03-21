@@ -62,21 +62,19 @@ try:
     k8s_config.load_kube_config()
     client = k8s_client.CoreV1Api()
 
-    '''items = get_helm_releases(client)
+    items = get_helm_releases(client)
     items = filter_helm_releases(items)
 
     base_dir = pathlib.Path("./releases")
-    base_dir.mkdir(exist_ok=True)'''
+    base_dir.mkdir(exist_ok=True)
 
-    print(get_repo_index("https://prometheus-community.github.io/helm-charts"))
-
-    '''for item in items:
+    for item in items:
         logging.info("Dump: {}".format(item.metadata.name))
-        dump_helm_releases(base_dir, item)'''
+        dump_helm_releases(base_dir, item)
 
-        # data = extract_helm_release_data(item)
-        # chart = data["chart"]["metadata"]
-        # logging.info("{} {} {}".format(chart.get("name", "?"), chart.get("home", "?"), chart.get("version", "?")))
+        data = extract_helm_release_data(item)
+        chart = data["chart"]["metadata"]
+        logging.info("{} {}".format(chart.get("name", "?"), chart.get("version", "?")))
 
 except Exception:
     logging.error(traceback.format_exc())
