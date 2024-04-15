@@ -1,0 +1,6 @@
+sentry-sdk
+opentelemetry-sdk
+opentelemetry-api
+opentelemetry-distro
+opentelemetry-instrumentation
+opentelemetry-semantic-conventions
