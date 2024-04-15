@@ -1,5 +1,4 @@
 #!/usr/bin/env python3
-# https://opentelemetry.io/docs/instrumentation/python/manual/
 import traceback
 from datetime import datetime
 
