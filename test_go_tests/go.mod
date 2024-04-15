@@ -1,3 +1,3 @@
 module test_go_tests
 
-go 1.19
+go 1.21

@@ -1,3 +1,3 @@
 module test_ssl_cert
 
-go 1.19
+go 1.21

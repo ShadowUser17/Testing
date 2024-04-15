@@ -1,3 +1,3 @@
 module test_github_api
 
-go 1.20
+go 1.21

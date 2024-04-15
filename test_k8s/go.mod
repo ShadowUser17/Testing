@@ -1,6 +1,6 @@
 module test_k8s
 
-go 1.19
+go 1.21
 
 require (
 	k8s.io/apimachinery v0.23.17
