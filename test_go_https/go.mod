@@ -1,4 +1,4 @@
-module test_https
+module test_go_https
 
 go 1.21
 
