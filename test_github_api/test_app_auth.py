@@ -1,16 +1,27 @@
 #!/usr/bin/env python3
 import os
+import re
 import github
-import pathlib
 import datetime
 import traceback
 
 
+def normalize_key(key: str) -> str:
+    key = key.lstrip().rstrip()
+
+    template = re.compile(r'^(-----BEGIN\s\w+\s\w+\sKEY-----)(.*)(-----END\s\w+\s\w+\sKEY-----)$')
+    tmp = list(template.findall(key)[0])
+
+    tmp[1] = tmp[1].lstrip().rstrip()
+    tmp[1] = tmp[1].replace(" ", "\n")
+    return "\n".join(tmp)
+
+
 def get_app_client(app_id: int = 0, app_key: str = "") -> github.Github:
     app_id = int(os.environ.get("GITHUB_APP_ID", app_id))
-    app_key_file = pathlib.Path(os.environ.get("GITHUB_APP_KEY", app_key))
+    app_key = normalize_key(os.environ.get("GITHUB_APP_KEY", app_key))
 
-    auth = github.Auth.AppAuth(app_id, app_key_file.read_text())
+    auth = github.Auth.AppAuth(app_id, app_key)
     git_integration = github.GithubIntegration(auth=auth)
     git_inst_id = git_integration.get_installations()[0].id
 
