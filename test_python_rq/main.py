@@ -20,10 +20,12 @@ try:
         print("{} has {} messages.".format(test_q.name, test_q.count))
 
         if not test_q.count:
-            for item in range(1, 10):
-                job = test_q.enqueue(math.pow, item, 10)
-                time.sleep(2)
-                print(job.return_value())
+            num = 0
+            while True:
+                job = test_q.enqueue(math.pow, num, num)
+                num += 1
+                time.sleep(1)
+                print("Return:", job.return_value())
 
         print("{} has {} messages.".format(test_q.name, test_q.count))
 
