@@ -2,6 +2,7 @@ import os
 import rq
 import sys
 import redis
+import funcs
 import traceback
 
 

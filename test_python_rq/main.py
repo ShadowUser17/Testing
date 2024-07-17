@@ -1,9 +1,9 @@
 import os
 import rq
 import sys
-import math
 import time
 import redis
+import funcs
 import traceback
 
 
@@ -19,15 +19,20 @@ try:
         test_q = rq.Queue(name="testing", connection=client)
         print("{} has {} messages.".format(test_q.name, test_q.count))
 
-        if not test_q.count:
-            num = 0
-            while True:
-                job = test_q.enqueue(math.pow, num, num)
-                num += 1
-                time.sleep(1)
-                print("Return:", job.return_value())
+        stats = {}
+        q_name = test_q.name
 
-        print("{} has {} messages.".format(test_q.name, test_q.count))
+        while True:
+            job = test_q.enqueue(funcs.get_func())
+            f_name = str(job.func_name)
+
+            if stats.get(f_name):
+                stats[f_name] += 1
+            else:
+                stats[f_name] = 1
+
+            print("Put: {} to {}: {}".format(f_name, q_name, stats[f_name]))
+            time.sleep(2)
 
 except Exception:
     traceback.print_exc()
