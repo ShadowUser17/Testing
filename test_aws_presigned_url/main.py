@@ -14,15 +14,17 @@ def generate_presigned_url(client: any, bucket: str, file: str, method: str = "g
     expire - The number of seconds.
     '''
     method = "get_object" if method == "get" else "put_object"
-    return client.generate_presigned_url(ClientMethod=method, Params={"Bucket": bucket, "Key": file}, ExpiresIn=expire)
+    return client.generate_presigned_url(
+        ClientMethod=method, Params={"Bucket": bucket, "Key": file}, ExpiresIn=expire
+    )
 
 
 try:
-    client = boto3.client("s3")
+    s3 = boto3.client("s3")
     bucket_name = "testing"
     bucket_file = "test_presigned_ur/1.txt"
 
-    url = generate_presigned_url(client, bucket_name, bucket_file, method="put")
+    url = generate_presigned_url(s3, bucket_name, bucket_file, method="put")
     print(url)
 
     data = "Testing..."
@@ -30,7 +32,10 @@ try:
     with request.urlopen(req) as http_client:
         print("PUT {}/{}:".format(bucket_name, bucket_file), http_client.status)
 
-    url = generate_presigned_url(client, bucket_name, bucket_file, method="get")
+    # sts = boto3.client("sts")
+    # credentials = sts.get_session_token(DurationSeconds=3600)
+
+    url = generate_presigned_url(s3, bucket_name, bucket_file, method="get")
     print(url)
 
     with request.urlopen(url) as http_client:
