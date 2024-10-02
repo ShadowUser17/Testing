@@ -1,8 +1,6 @@
 import boto3
 import traceback
 
-from urllib import request
-
 # AWS_DEFAULT_REGION
 # AWS_PROFILE
 # AWS_ACCESS_KEY_ID
@@ -20,26 +18,17 @@ def generate_presigned_url(client: any, bucket: str, file: str, method: str = "g
 
 
 try:
-    s3 = boto3.client("s3")
+    expire_in_sec = 129600
     bucket_name = "testing"
     bucket_file = "test_presigned_ur/1.txt"
 
-    url = generate_presigned_url(s3, bucket_name, bucket_file, method="put")
-    print(url)
-
-    data = "Testing..."
-    req = request.Request(method="PUT", url=url, data=data.encode())
-    with request.urlopen(req) as http_client:
-        print("PUT {}/{}:".format(bucket_name, bucket_file), http_client.status)
-
     # sts = boto3.client("sts")
-    # credentials = sts.get_session_token(DurationSeconds=3600)
+    # credentials = sts.get_session_token(DurationSeconds=expire_in_sec)
+    # print(credentials)
 
+    s3 = boto3.client("s3")
     url = generate_presigned_url(s3, bucket_name, bucket_file, method="get")
     print(url)
-
-    with request.urlopen(url) as http_client:
-        print("GET {}/{}:".format(bucket_name, bucket_file), http_client.read())
 
 except Exception:
     traceback.print_exc()
