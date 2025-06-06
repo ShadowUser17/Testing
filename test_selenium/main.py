@@ -19,6 +19,7 @@ def get_driver() -> any:
     )
 
 driver = get_driver()
+driver.set_window_size(1280, 720)
 print("Start session:", driver.session_id)
 
 # driver.get("https://www.google.com/")
