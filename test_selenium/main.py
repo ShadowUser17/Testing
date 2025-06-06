@@ -1,4 +1,6 @@
 import os
+import atexit
+import logging
 
 from selenium import webdriver
 from selenium.webdriver.common.by import By
@@ -6,6 +8,14 @@ from selenium.webdriver.common.keys import Keys
 from selenium.webdriver.chrome.options import Options
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions
+
+
+def configure_logger() -> None:
+    log_level = logging.DEBUG if os.environ.get("DEBUG_MODE", "") else logging.INFO
+    logging.basicConfig(
+        format=r'%(levelname)s [%(asctime)s]: "%(message)s"',
+        datefmt=r'%Y-%m-%d %H:%M:%S', level=log_level
+    )
 
 
 def get_driver() -> any:
@@ -31,15 +41,8 @@ def get_driver() -> any:
         options=chrome_options
     )
 
+
+configure_logger()
 driver = get_driver()
+atexit.register(getattr(driver, "quit"))
 print("Start session:", driver.session_id)
-
-# driver.get("https://www.google.com/")
-# print("Open", driver.current_url)
-
-# elem = driver.find_element(By.NAME, "q")
-# elem.clear()
-# elem.send_keys("kali linux")
-# elem.send_keys(Keys.RETURN)
-
-# driver.close()
