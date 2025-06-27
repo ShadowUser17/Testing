@@ -10,7 +10,7 @@ try:
     client = genai.Client(api_key=os.environ.get("GEMINI_API_KEY"))
     response = client.models.generate_content(
         contents=sys.argv[1],
-        model="gemini-2.5-flash",
+        model=os.environ.get("GEMINI_MODEL", "gemini-2.5-flash"),
         config=types.GenerateContentConfig(thinking_config=types.ThinkingConfig(thinking_budget=0))
     )
     print(response.text)

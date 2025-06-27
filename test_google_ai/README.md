@@ -7,4 +7,6 @@ export GEMINI_API_KEY=''
 ```
 
 #### URLs:
-- [Docs](https://ai.google.dev/gemini-api/docs/quickstart)
+- [Docs](https://ai.google.dev/gemini-api/docs/api-key)
+- [Cookbook](https://github.com/google-gemini/cookbook)
+- [Examples](https://github.com/google-gemini/api-examples/tree/main/python)
