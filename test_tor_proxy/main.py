@@ -14,10 +14,10 @@ try:
         "https": "socks5h://{}:{}".format(TOR_HOST, TOR_PORT)
     }
 
-    response = requests.get("http://ident.me/")
+    response = requests.get("https://check.torproject.org/api/ip")
     print("Real:", response.text)
 
-    response = requests.get("http://ident.me/", proxies=proxies)
+    response = requests.get("https://check.torproject.org/api/ip", proxies=proxies)
     print("TOR:", response.text)
 
 except Exception:
