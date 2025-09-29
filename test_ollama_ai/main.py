@@ -6,7 +6,7 @@ import traceback
 
 try:
     resp = ollama.chat(
-        model=os.environ.get("OLLAMA_MODEL", "phi3:mini"),
+        model=os.environ.get("OLLAMA_MODEL", "gemma3:270m"),
         messages=[{"role": "user", "content": sys.argv[1]}]
     )
 

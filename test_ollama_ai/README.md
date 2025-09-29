@@ -3,7 +3,7 @@
 export OLLAMA_HOST="http://ollama.docker:11434"
 ```
 ```bash
-export OLLAMA_MODEL="phi3:mini"
+export OLLAMA_MODEL="gemma3:270m"
 ```
 ```bash
 ./env/bin/python3 main.py "<context>"
