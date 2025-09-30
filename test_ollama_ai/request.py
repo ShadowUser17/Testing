@@ -5,11 +5,8 @@ import traceback
 
 
 try:
-    resp = ollama.chat(
-        model=os.environ.get("OLLAMA_MODEL", ""),
-        messages=[{"role": "user", "content": sys.argv[1]}]
-    )
-
+    messages = [{"role": "user", "content": item} for item in sys.argv]
+    resp = ollama.chat(os.environ.get("OLLAMA_MODEL", ""), messages)
     print(resp['message']['content'])
 
 except Exception:
