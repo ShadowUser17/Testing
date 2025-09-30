@@ -6,7 +6,7 @@ export OLLAMA_HOST="http://ollama.docker:11434"
 export OLLAMA_MODEL="gemma3:1b-it-qat"
 ```
 ```bash
-./env/bin/python3 main.py "<context>"
+./env/bin/python3 <script> <context>
 ```
 
 #### Show installed models:
